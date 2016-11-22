@@ -13,11 +13,9 @@
     <h1>First Anuglar JS</h1>
 
     <div ng-controller="myFirstController">
-        {{name}}
+        <input type="text" ng-model="name" ng-blur="upper();" />
         <br/>
-        <input type="text" ng-model="displayField" />
-        <br/>
-        My Field is {{displayField}}
+        My Field is {{name}}
     </div>
 
 </body>
