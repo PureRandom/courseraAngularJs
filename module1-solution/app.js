@@ -7,11 +7,11 @@
     checkList.$inject = ['$scope'];
 
     function checkList($scope) {
-        $scope.listInput = 'bing,bong';
+        $scope.listInput = '';
         $scope.message = '';
 
         $scope.listCheck = () => {
-            let listItems = $scope.listInput.split(',');//.filter(n => n !== undefined);
+            let listItems = $scope.listInput.split(',').filter(n => n !== undefined && n !== '');
             if (listItems.length === 0) {
                 $scope.message = 'Please enter data first';
             } else if (listItems.length <= 3) {
