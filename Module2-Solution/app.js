@@ -1,16 +1,33 @@
 (() => {
     'use strict';
 
-    angular.module('shoppingApp', [])
+    angular.module('ShoppingListCheckOff', [])
         .controller('ToBuyController', ToBuyController)
-        // .controller('AlreadyBoughtController', AlreadyBoughtController)
-        .provider('toBuy', toBuyProvider)
-        // .provider('broughtProvider', broughtProvider)
-        .config(toBuyConfig);
+        .controller('AlreadyBoughtController', AlreadyBoughtController)
+        .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
-    toBuyConfig.$inject = ['toBuyProvider'];
-    function toBuyConfig(toBuyProvider) {
-        toBuyProvider.defaults = [
+    ToBuyController.$inject = ['ShoppingListCheckOffService'];
+    function ToBuyController(ShoppingListCheckOffService) {
+        const ToBuyItems = this;
+        // Get Buy Items
+        ToBuyItems.toBuyItems = ShoppingListCheckOffService.buyItems;
+        // Remove Buy Items and add to Brought Items
+        ToBuyItems.itemBrought = (itemIndex) => {
+            ShoppingListCheckOffService.updateBroughtList(itemIndex);
+        };
+    }
+
+    AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+    function AlreadyBoughtController(ShoppingListCheckOffService) {
+        const BroughtItems = this;
+        // Get Buy Items
+        BroughtItems.itemsBrought = ShoppingListCheckOffService.broughtItems;
+    }
+
+    function ShoppingListCheckOffService() {
+        const shoppingListService = this;
+        // Set up array items for Buy and Brought
+        const buyItems = [
             {
                 itemName: 'Cookeies',
                 itemQuantity: 5,
@@ -36,58 +53,19 @@
                 itemQuantity: 20,
             },
         ];
-    }
-
-    ToBuyController.$inject = ['toBuy'];
-    function ToBuyController(toBuy) {
-        const ToBuyItems = this;
-
-        ToBuyItems.toBuyItems = toBuy.getItems;
-
-        ToBuyItems.itemBrought = (itemIndex) => {
-            toBuy.removeItem(itemIndex);
+        const broughtItems = [];
+        // Remove Buy Items and add to Brought Items
+        shoppingListService.updateBroughtList = (itemIndex) => {
+            const item = buyItems[itemIndex];
+            broughtItems.push(item);
+            this.removeBuyItem(itemIndex);
         };
-    }
-
-    // AlreadyBoughtController.$inject = ['$scope', 'arrayFactory'];
-    // function AlreadyBoughtController($scope, arrayFactory) {
-
-    // }
-
-    function arrayService(defaults) {
-        const arrService = this;
-        const arrItems = defaults || [];
-
-        arrService.addItem = (itemName, itemQuantity) => {
-            const item = {
-                itemName,
-                itemQuantity,
-            };
-            arrItems.push(item);
+        // Remove Buy Item
+        shoppingListService.removeBuyItem = (itemIndex) => {
+            buyItems.splice(itemIndex, 1);
         };
-
-        arrService.removeItem = (itemIndex) => {
-            arrItems.splice(itemIndex, 1);
-        };
-
-        arrService.getItems = arrItems;
+        // Add array items to service
+        shoppingListService.buyItems = buyItems;
+        shoppingListService.broughtItems = broughtItems;
     }
-
-    function toBuyProvider() {
-        const provider = this;
-
-        provider.defaults = [];
-
-        provider.$get = () => {
-            return new arrayService(provider.defaults);
-        };
-    }
-
-    // function broughtProvider() {
-    //     const provider = this;
-
-    //     provider.$get = () => {
-    //         return new arrayService(provider.defaults);
-    //     };
-    // }
 })();

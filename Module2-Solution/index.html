@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="shoppingApp">
+<html lang="en" ng-app="ShoppingListCheckOff">
 
 <head>
   <title>Shopping List Check Off</title>
@@ -45,16 +45,16 @@
             </button>
           </li>
         </ul>
-        <div class="emptyMessage" ng-hide="toBuyCtrl.toBuyItems">Everything is bought!</div>
+        <div class="emptyMessage" ng-if="toBuyCtrl.toBuyItems.length === 0">Everything is bought!</div>
       </div>
 
       <!-- Already Bought List -->
-      <div class="col-md-6">
+      <div class="col-md-6" ng-controller="AlreadyBoughtController as broughtCtrl" >
         <h2>Already Bought:</h2>
         <ul>
-          <li>Bought 10 cookies</li>
+          <li ng-repeat="item in broughtCtrl.itemsBrought" >Bought {{item.itemQuantity}} {{item.itemName}}</li>
         </ul>
-        <div class="emptyMessage">Nothing bought yet.</div>
+        <div class="emptyMessage"  ng-if="broughtCtrl.itemsBrought.length === 0" >Nothing bought yet.</div>
       </div>
     </div>
   </div>
