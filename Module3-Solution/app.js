@@ -45,17 +45,13 @@
                 method: 'GET',
                 url: (`${ApiBasePath}/menu_items.json`),
             }).then((result) => {
-                let foundItems = [];
-                const returnItems = [];
+                let returnItems = [];
 
                 if (typeof searchTerm !== 'undefined' && searchTerm.length > 0) {
-                    foundItems = foundItems.concat(result.data.menu_items);
                     const searchTermLocal = searchTerm.toLowerCase();
-                    foundItems.forEach((item) => {
-                        if (item.description.toLowerCase().indexOf(searchTermLocal) > 1) {
-                            returnItems.push(item);
-                        }
-                    });
+                    const foundItems = result.data.menu_items;
+                    returnItems = foundItems.filter(
+                        item => (item.description.toLowerCase().indexOf(searchTermLocal) > 1));
                 }
 
                 // return processed items
