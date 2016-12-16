@@ -9,23 +9,16 @@
     function MenuDataService($http, ApiBasePath) {
         const MenuData = this;
 
-        MenuData.getAllCategories = () => {
-            $http({
-                method: 'GET',
-                url: (`${ApiBasePath}/categories.json`),
-            }).then(result => {
-                return result.data;
-            },
-                result => {
-                    return console.error(result);
-                });
-        };
+        // Get all categories
+        MenuData.getAllCategories = () => $http({
+            method: 'GET',
+            url: (`${ApiBasePath}/categories.json`),
+        }).then(result => result.data, result => console.error(result));
 
-        MenuData.getItemsForCategory = (categoryShortName) => {
-            $http({
-                method: 'GET',
-                url: (`${ApiBasePath}/menu_items.json?category=${categoryShortName}`),
-            }).then(result => result.data);
-        };
+        // Get items for category
+        MenuData.getItemsForCategory = categoryShortName => $http({
+            method: 'GET',
+            url: (`${ApiBasePath}/menu_items.json?category=${categoryShortName}`),
+        }).then(result => result.data, result => console.error(result));
     }
 })();
