@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Chinese Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body ng-app="MenuApp">
+  <div class="container">
+    <h1>Chinese Menu</h1>
+    <div class="container">
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a ui-sref="home" href="#/" >Home</a></li>
+              <li><a ui-sref="categories" href="#/categories" >Categories</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+    <ui-view></ui-view>
+  </div>
+
+  <script src="../angular.min.js"></script>
+  <script src="lib/angular-ui-router.min.js"></script>
+
+  <script src="lib/menuapp.module.js"></script>
+  <script src="lib/data.module.js"></script>
+
+  <script src="lib/router.js"></script>
+
+  <script src="lib/menudata.service.js"></script>
+  <script src="lib/categories.controller.js"></script>
+  <script src="lib/categories.component.js"></script>
+</body>
+
+</html>
