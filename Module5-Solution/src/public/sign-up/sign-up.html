@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="shortName">Favorite Short Name</label>
-            <input type="text" class="form-control" id="shortName" placeholder="Short Name (e.g. A1)" name="shortName" ng-model="shortName">
+            <input type="text" class="form-control" id="shortName" placeholder="Short Name (e.g. A1)" name="shortName" ng-model="shortName" ng-blur="signUpCtrl.checkShortName(signUpForm.shortName.$viewValue)" >
             <br/>
             <div class="alert alert-danger" ng-show="signUpCtrl.validShortName == false">
                 <strong>No such menu number exists!</strong>
