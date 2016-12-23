@@ -54,7 +54,7 @@
         controllerAs: 'myInfoCtrl',
         resolve: {
           userDetails: ['userService', userService => {
-            return userService.getUser();
+            return userService.user;
           }],
         },
       });

@@ -7,20 +7,17 @@
     UserService.$inject = ['$http', 'ApiPath'];
     function UserService($http, ApiPath) {
         const service = this;
-        let serviceUser = {'hello':'hello'};
-        service.addUser = (userDetils) => {
-            return service.checkShortName(userDetils.favoriteItem.shortName).then((data) => {
-                serviceUser = userDetils;
-                serviceUser.favoriteItem = data;
+
+        service.addUser = (userDetils) => service.checkShortName(userDetils.favoriteItem.shortName)
+            .then((data) => {
+                service.user = userDetils;
+                service.user.favoriteItem = data;
                 return typeof data !== 'undefined' && data !== false;
             });
-        };
 
-        service.checkShortName = (shortName) => $http({
+        service.checkShortName = shortName => $http({
             method: 'GET',
             url: (`${ApiPath}/menu_items/${shortName}.json`),
-        }).then((response) => response.data, () => false);
-
-        service.getUser = () => serviceUser;
+        }).then(response => response.data, () => false);
     }
 })();

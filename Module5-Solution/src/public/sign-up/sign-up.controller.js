@@ -21,11 +21,11 @@
             };
 
             userService.addUser(userDetails).then((data) => {
+                console.log(userService.getUser());
                 ctrl.validShortName = (typeof data !== 'undefined' && data);
             }, (data) => {
                 ctrl.validShortName = data;
             });
         };
     }
-
 })();

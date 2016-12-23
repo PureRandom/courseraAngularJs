@@ -1,23 +1,53 @@
 <div class="container">
     <div ng-show="myInfoCtrl.user">
-        <div class="form-group">
-            <label for="firstName">First Name</label> <strong>{{ myInfoCtrl.user.firstName }}</strong>
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last Name</label> <strong>{{ myInfoCtrl.user.lastName }}</strong>
-        </div>
-        <div class="form-group">
-            <label for="emailAddress">Email Address</label> <strong>{{ myInfoCtrl.user.emailAddress }}</strong>
-        </div>
-        <div class="form-group">
-            <label for="firstName">Phone Number</label> <strong>{{ myInfoCtrl.user.phoneNumber }}</strong>
-        </div>
-        <div class="form-group">
-            <label for="firstName">Favorite Short Name</label> <strong>{{ myInfoCtrl.user.favoriteItem }}</strong>
-        </div>
+        <h1>My Information</h1>
+        <table class="table table-striped" style="color: black;" >
+            <tr class="warning">
+                <th>First Name</th>
+                <td>
+                    {{ myInfoCtrl.user.firstName }}
+                </td>
+            </tr>
+            <tr class="warning">
+                <th>Last Name</th>
+                <td>
+                    {{ myInfoCtrl.user.lastName }}
+                </td>
+            </tr>
+            <tr class="warning">
+                <th>Email Address</th>
+                <td>
+                    {{ myInfoCtrl.user.emailAddress }}
+                </td>
+            </tr>
+            <tr class="warning">
+                <th>Phone Number</th>
+                <td>
+                    {{ myInfoCtrl.user.phoneNumber }}
+                </td>
+            </tr>
+            <tr class="warning">
+                <th>Favorite Short Name</th>
+                <td>
+                    {{ myInfoCtrl.user.favoriteItem.name }}
+                </td>
+            </tr>
+            <tr class="warning">
+                <th>&nbsp;</th>
+                <td>
+                    {{ myInfoCtrl.user.favoriteItem.description }}
+                </td>
+            </tr>
+            <tr ng-show="myInfoCtrl.user.favoriteItem.image_present" class="warning">
+                <th>&nbsp;</th>
+                <td>
+                    <img ng-src="/Module5-Solution/images/menu/{{myInfoCtrl.user.favoriteItem.category_short_name}}/{{myInfoCtrl.user.favoriteItem.short_name}}.jpg"
+                    />
+                </td>
+            </tr>
+            </table>
     </div>
-
     <div class="alert alert-danger" ng-hide="myInfoCtrl.user">
-        <strong>Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a></strong>
+        <td>Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a></td>
     </div>
 </div>
